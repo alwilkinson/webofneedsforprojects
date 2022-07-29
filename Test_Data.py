@@ -1,4 +1,4 @@
-from Project_class import Project as pr
+from Project_Class import Project as pr
 import pandas as pd
 
 website = pr(1, "Website", ["JS", "C"])
