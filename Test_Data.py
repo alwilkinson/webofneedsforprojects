@@ -1,5 +1,4 @@
 from Project_Class import Project as pr
-import pandas as pd
 from typing import List
 
 ids = {1, 2, 3}
