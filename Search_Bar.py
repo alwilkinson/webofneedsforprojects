@@ -1,7 +1,7 @@
 import Test_Data
 import re
 from typing import List, Union
-from Project_class import Project as pr
+from Project_Class import Project as pr
 
 # This is a basic script to filter data based on search filters. I plan to include a better matching algorithm for the title matching
     # and allow for less advanced searches, but this is a starting point.
