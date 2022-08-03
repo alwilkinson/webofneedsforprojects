@@ -11,9 +11,9 @@ data = [website, church_plant, book]
 def get_projects() -> List[pr]:
     return data
 
-def create_project(new_id: int, title: str, tags: List[str] = [], description: Union[str, None] = None, region: Union[str, None] = None):
+def create_project(new_id: int, title: str, tags: List[str] = [], description: Union[str, None] = None, region: Union[str, None] = None, phone: Union[int, None] = None, email: Union[str, None] = None):
     if not new_id in ids:
-        data.append(pr(new_id, title, tags, description, region))
+        data.append(pr(new_id, title, tags, description, region, phone, email))
         ids.add(new_id)
     else:
         print("That project ID already exists. Please try again.")

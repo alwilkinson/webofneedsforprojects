@@ -3,15 +3,17 @@ from typing import Union, List
 
 class Project:
     """Simple object to represent a project"""
-    __slots__ = '_id', '_title', '_tags', '_description', '_date_created', '_region'
+    __slots__ = '_id', '_title', '_tags', '_description', '_date_created', '_region', '_phone', '_email'
 
-    def __init__(self, id: int, title: str, tags: List[str] = [], description: Union[str, None] = None, region: Union[str, None] = None):
+    def __init__(self, id: int, title: str, tags: List[str] = [], description: Union[str, None] = None, region: Union[str, None] = None, phone: Union[int, None] = None, email: Union[str, None] = None):
         self._id = id
         self._title = title
         self._tags = tags
         self._description = description
         self._date_created = datetime.today()
         self._region = region
+        self._phone = phone
+        self._email = email
 
     #-------------------------- public accessors --------------------------
 
