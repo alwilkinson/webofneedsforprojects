@@ -3,9 +3,9 @@ from typing import Union, List
 
 class Project:
     """Simple object to represent a project"""
-    __slots__ = '_id', '_title', '_tags', '_description', '_date_created', '_region', '_phone', '_email'
+    __slots__ = '_id', '_title', '_tags', '_description', '_date_created', '_region', '_phone', '_email', '_is_event', '_event_time'
 
-    def __init__(self, id: int, title: str, tags: List[str] = [], description: Union[str, None] = None, region: Union[str, None] = None, phone: Union[int, None] = None, email: Union[str, None] = None):
+    def __init__(self, id: int, title: str, tags: List[str] = [], description: Union[str, None] = None, region: Union[str, None] = None, phone: Union[int, None] = None, email: Union[str, None] = None, is_event: bool = False, event_time: Union[datetime, None] = None):
         self._id = id
         self._title = title
         self._tags = tags
@@ -14,6 +14,8 @@ class Project:
         self._region = region
         self._phone = phone
         self._email = email
+        self._is_event = is_event
+        self._event_time = event_time
 
     #-------------------------- public accessors --------------------------
 
@@ -40,6 +42,9 @@ class Project:
 
     def get_email(self) -> Union[str, None]:
         return self._email
+    
+    def get_event_time(self) -> Union[datetime, None]:
+        return self._event_time
     #-------------------------- nonpublic mutators --------------------------
 
     def add_tags(self, tags = Union[str, List[str]]):

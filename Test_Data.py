@@ -1,5 +1,6 @@
 from Project_Class import Project as pr
 from typing import List, Union
+from datetime import datetime
 
 ids = {1, 2, 3}
 website = pr(1, "Website", ["JS", "C"], "Build a website.")
@@ -11,9 +12,9 @@ data = [website, church_plant, book]
 def get_projects() -> List[pr]:
     return data
 
-def create_project(new_id: int, title: str, tags: List[str] = [], description: Union[str, None] = None, region: Union[str, None] = None, phone: Union[int, None] = None, email: Union[str, None] = None):
+def create_project(new_id: int, title: str, tags: List[str] = [], description: Union[str, None] = None, region: Union[str, None] = None, phone: Union[int, None] = None, email: Union[str, None] = None, is_event: bool = False, event_time: Union[datetime, None] = None):
     if not new_id in ids:
-        data.append(pr(new_id, title, tags, description, region, phone, email))
+        data.append(pr(new_id, title, tags, description, region, phone, email, is_event, event_time))
         ids.add(new_id)
     else:
         print("That project ID already exists. Please try again.")
