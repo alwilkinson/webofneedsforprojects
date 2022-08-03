@@ -26,9 +26,20 @@ class Project:
     def get_title(self) -> str:
         return self._title
 
-    def get_description(self) -> str:
+    def get_description(self) -> Union[str, None]:
         return self._description
 
+    def get_date_created(self) -> datetime.date:
+        return self._date_created
+    
+    def get_region(self) -> Union[str, None]:
+        return self._region
+
+    def get_phone(self) -> Union[int, None]:
+        return self._phone
+
+    def get_email(self) -> Union[str, None]:
+        return self._email
     #-------------------------- nonpublic mutators --------------------------
 
     def add_tags(self, tags = Union[str, List[str]]):
