@@ -84,6 +84,13 @@ def created_before(project: pr, date: Union[datetime.date, None] = None) -> bool
 def created_after(project: pr, date: Union[datetime.date, None] = None) -> bool:
     return True if date == None or pr.get_date_created > date else False
 
+#filter by description
+
+#fiter by region
+
+#filter by event vs not
+
+#filter by event time
 
 
 if __name__ == "__main__":
