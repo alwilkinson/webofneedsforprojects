@@ -1,1 +1,0 @@
-AIRTABLE_KEY = "key7NVws8AO4SCLvl"
