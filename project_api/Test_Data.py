@@ -4,13 +4,17 @@ from datetime import datetime
 import project_airtable_api as airtable
 from tag_api.models import Tag
 import json
+import re
 
 def get_project_data() -> List[pr]:
     data = json.loads(airtable.get_projects())["records"]
     projects: List[pr] = []
     for project in data:
         fields = project["fields"]
-        projects.append(pr(project["id"], fields["Name"], fields["Tags"], fields["Description"], fields["Region"], fields["Primary_Contact"]))
+        # date created requires some scraping, as the airtable keeps more precise time than we need.
+        date_list = [int(string) for string in re.split(r'-', project["createdTime"][0:10])]
+        date = datetime.date(date_list[0], date_list[1], date_list[2])
+        projects.append(pr(project["id"], fields["Name"], fields["Tags"], fields["Description"], date, fields["Region"], fields["Primary_Contact"]))
     return projects
     
 
