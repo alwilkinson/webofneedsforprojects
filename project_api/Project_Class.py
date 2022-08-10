@@ -6,7 +6,7 @@ class Project:
     """Simple object to represent a project"""
     __slots__ = '_id', '_name', '_tags', '_description', '_date_created', '_region', '_creator_id', '_is_event', '_event_time'
 
-    def __init__(self, id: int, name: str, tags: List[Tag] = [], description: Union[str, None] = None, region: Union[str, None] = None, creator_id: Union[int, None] = None, is_event: bool = False, event_time: Union[datetime, None] = None):
+    def __init__(self, id: str, name: str, tags: List[Tag] = [], description: Union[str, None] = None, region: Union[str, None] = None, creator_id: Union[int, None] = None, is_event: bool = False, event_time: Union[datetime, None] = None):
         self._id = id
         self._name = name
         self._tags = tags
@@ -19,7 +19,7 @@ class Project:
 
     #-------------------------- public accessors --------------------------
 
-    def get_id(self) -> int:
+    def get_id(self) -> str:
         return self._id
     
     def get_tags(self) -> List[Tag]:
