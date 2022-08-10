@@ -46,7 +46,7 @@ def get_projects():
     r = requests.get(endpoint) # Don't have time to figure out the parameters; I'll filter things on the python side of things for now
     return r.json
 
-def add_project(project_id, description = None, name = None, tags = None, tag_ids = None, primary_contact = None, primary_contact_phone = None, primary_contact_email = None, primary_contact_social_media = None, image = None):
+def add_project(name, description = None, tags = None, tag_ids = None, primary_contact = None, primary_contact_phone = None, primary_contact_email = None, primary_contact_social_media = None, image = None):
     headers = {
         "Authorization": "Bearer {AIRTABLE_API_KEY}",
         "Content-Type": "application/json"
@@ -56,22 +56,9 @@ def add_project(project_id, description = None, name = None, tags = None, tag_id
          "records": [
             {
                 "fields": {
-                    "ProjectID": project_id,
                     "Description": description,
                     "Name": name,
                     "Tags": tags,
-                    "TagId (from Tags)": tag_ids,
-                    "PrimaryContact": primary_contact,
-                    "Image": image
-                }
-            },
-            {
-                "fields": {
-                    "ProjectID": project_id,
-                    "Description": description,
-                    "Name": name,
-                    "Tags": tags,
-                    "TagId (from Tags)": tag_ids,
                     "PrimaryContact": primary_contact,
                     "Image": image
                 }
