@@ -1,7 +1,7 @@
 from Project_Class import Project as pr
 from typing import List, Union
 from datetime import datetime
-import project_airtable_api as airtable
+import Airtable_Api as airtable
 from tag_api.models import Tag
 import json
 import re
