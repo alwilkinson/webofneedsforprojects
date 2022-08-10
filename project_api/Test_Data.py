@@ -1,24 +1,14 @@
 from Project_Class import Project as pr
 from typing import List, Union
 from datetime import datetime
+import project_airtable_api as airtable
+from tag_api.models import Tag
 
-ids = {1, 2, 3}
-website = pr(1, "Website", ["JS", "C"], "Build a website.")
-church_plant = pr(2, "Church Planting", ["Evangelism"], "Planting churches in hard-to-reach areas.")
-book = pr(3, "Children's Storybook", ["Creative Writing"], "Writing Bible stories in a format children can understand.")
+def get_project_data() -> List[pr]:
+    data = airtable.get_projects()
 
-data = [website, church_plant, book]
-
-def get_projects() -> List[pr]:
-    return data
-
-def create_project(new_id: int, title: str, tags: List[str] = [], description: Union[str, None] = None, region: Union[str, None] = None, creator_id: Union[int, None] = None, is_event: bool = False, event_time: Union[datetime, None] = None):
-    if not new_id in ids:
-        data.append(pr(new_id, title, tags, description, region, creator_id, is_event, event_time))
-        ids.add(new_id)
-    else:
-        print("That project ID already exists. Please try again.")
+def create_project(name: str, tags: List[Tag] = [], description: Union[str, None] = None, region: Union[str, None] = None, primary_contact: Union[int, None] = None, is_event: bool = False, event_time: Union[datetime, None] = None):
+    airtable.add_project()
 
 def remove_project(project: pr):
-    data.remove(project)
-    ids.remove(pr.get_id(project))
+    airtable.remove_project(pr.get_id)
