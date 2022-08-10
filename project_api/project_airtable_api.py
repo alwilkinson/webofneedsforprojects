@@ -82,4 +82,10 @@ def add_project(project_id, description = None, name = None, tags = None, tag_id
     r = requests.post(endpoint, json = data, headers = headers)
     print(r.status_code())
 
-add_project(None, name = "Test")
+def remove_project(project_id):
+    headers = {
+        "Authorization": "Bearer {AIRTABLE_API_KEY}"
+    }
+
+    r = requests.delete(endpoint + project_id)
+    return r.status_code()
