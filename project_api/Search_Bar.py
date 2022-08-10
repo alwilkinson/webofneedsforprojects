@@ -1,8 +1,9 @@
-import Test_Data
+import Test_Data as Test_Data
 import re
 from typing import List, Union, Dict
 from Project_Class import Project as pr
 from datetime import datetime
+from tag_api.models import Tag
 
 # This is a basic script to filter data based on search filters. I plan to include a better matching algorithm for the title matching
     # and allow for less advanced searches, but this is a starting point.
@@ -11,7 +12,7 @@ search_filters = {"title_includes": [], "tags_include": [], "title_exclude": [],
 
 _data = Test_Data.get_projects()
 
-def filter_search(data: List[pr], title_include: Union[str, None] = None, tags_include: Union[List[str], None] = None, title_exclude: Union[List[str], None] = None, tags_exclude: Union[str, None] = None, before_date: Union[datetime.date, None] = None, after_date: Union[datetime.date, None] = None) -> Union[List[pr], Dict[pr, List[str]]]:
+def filter_search(data: List[pr], title_include: Union[str, None] = None, tags_include: Union[List[Tag], None] = None, title_exclude: Union[List[str], None] = None, tags_exclude: Union[Tag, None] = None, before_date: Union[datetime.date, None] = None, after_date: Union[datetime.date, None] = None) -> Union[List[pr], Dict[pr, List[str]]]:
     """Filters searches based on strings to include in the title, tags to include, strings to exclude from the title, tags to exclude, and whether it was created before or after a given date.
     Only direct matches with the title will cause inclusion or exclusion."""
     display: Union[List[pr], Dict[pr, List[str]]] = data
@@ -24,7 +25,7 @@ def filter_search(data: List[pr], title_include: Union[str, None] = None, tags_i
     return display
     
     
-def filter_tags(data: List[pr], tags_include: Union[List[str], None] = None, tags_exclude: Union[List[str], None] = None):
+def filter_tags(data: List[pr], tags_include: Union[List[Tag], None] = None, tags_exclude: Union[List[Tag], None] = None) -> Dict[pr: List[Tag]]:
     """Returns a dictionary whose keys are the projects that include at least one tag from tags_include and have no tags from tags_exclude,
     and whose values are the corresponding list of matching tags to include."""
     filtered: dict = {}
@@ -35,7 +36,7 @@ def filter_tags(data: List[pr], tags_include: Union[List[str], None] = None, tag
                 filtered += {project: tags}
     return filtered
     
-def contains_tags(project: pr, tags: Union[List[str], None]) -> Union[List[str], None]:
+def contains_tags(project: pr, tags: Union[List[Tag], None]) -> Union[List[Tag], None]:
     """Returns a list of matching tags if a project has any tags from a given list and None if it has no tags or the tags parameter was given None.""" 
     if tags == None:
         return None
