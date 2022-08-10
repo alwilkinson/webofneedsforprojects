@@ -42,7 +42,8 @@ def add_project(name: str, description: str = None, tags: List[Tag] = [], primar
                     "Name": name,
                     "Tags": tags,
                     "PrimaryContact": primary_contact,
-                    "Image": image
+                    "Image": image,
+                    "Region": region
                 }
             }
         ]
