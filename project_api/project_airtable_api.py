@@ -1,6 +1,9 @@
 import os
 import requests
+from typing import List
 from dotenv import load_dotenv
+
+from tag_api.models import Tag
 load_dotenv(".env")
 
 AIRTABLE_BASE_ID = os.environ.get("AIRTABLE_BASE_ID")
@@ -9,28 +12,7 @@ AIRTABLE_TABLE_NAME = os.environ.get("AIRTABLE_TABLE_NAME")
 
 endpoint = 'https://api.airtable.com/v0/{AIRTABLE_BASE_ID}/{AIRTABLE_TABLE_NAME}'
 
-# headers = {
-#     "Authorization: Bearer {AIRTABLE_API_KEY}",
-#     "Content-Type: application/json"
-# }
-# 
-# data = {
-#      "records": [
-#         {
-#             "fields": {}
-#         },
-#         {
-#             "fields": {}
-#         }
-#     ]
-# }
-# 
-# r = requests.post(endpoint, json = data, headers = headers)
-# print(r.json())
-
-
-
-def get_project(project_id):
+def get_project(project_id: str):
     headers = {
         "Authorization": "Bearer {AIRTABLE_API_KEY}"
     }
@@ -46,7 +28,7 @@ def get_projects():
     r = requests.get(endpoint) # Don't have time to figure out the parameters; I'll filter things on the python side of things for now
     return r.json
 
-def add_project(name, description = None, tags = None, tag_ids = None, primary_contact = None, primary_contact_phone = None, primary_contact_email = None, primary_contact_social_media = None, image = None):
+def add_project(name: str, description: str = None, tags: List[Tag] = [], primary_contact: str = None, image: str = None, region: str = None):
     headers = {
         "Authorization": "Bearer {AIRTABLE_API_KEY}",
         "Content-Type": "application/json"
@@ -69,7 +51,7 @@ def add_project(name, description = None, tags = None, tag_ids = None, primary_c
     r = requests.post(endpoint, json = data, headers = headers)
     print(r.status_code())
 
-def remove_project(project_id):
+def remove_project(project_id: str):
     headers = {
         "Authorization": "Bearer {AIRTABLE_API_KEY}"
     }
