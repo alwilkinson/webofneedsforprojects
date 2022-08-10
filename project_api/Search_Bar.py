@@ -10,7 +10,7 @@ from tag_api.models import Tag
 
 search_filters = {"title_includes": [], "tags_include": [], "title_exclude": [], "tags_exclude": [], "before_date": None, "after_date": None}
 
-_data = Test_Data.get_project_data()
+data = Test_Data.get_project_data()
 
 def filter_search(data: List[pr], title_include: Union[str, None] = None, tags_include: Union[List[Tag], None] = None, title_exclude: Union[List[str], None] = None, tags_exclude: Union[Tag, None] = None, before_date: Union[datetime.date, None] = None, after_date: Union[datetime.date, None] = None) -> Union[List[pr], Dict[pr, List[str]]]:
     """Filters searches based on strings to include in the title, tags to include, strings to exclude from the title, tags to exclude, and whether it was created before or after a given date.
@@ -96,6 +96,6 @@ def created_after(project: pr, date: Union[datetime.date, None] = None) -> bool:
 
 if __name__ == "__main__":
     print('Including Creative Writing:', end = '')
-    filter_search(None, "Creative Writing")
+    filter_search(data, "Creative Writing")
     print('Including JS and excluding C', end = '')
-    filter_search(None, "JS", None, "C")
+    filter_search(data, "JS", None, "C")
