@@ -1,8 +1,7 @@
 import os
 import requests
-from typing import List
+from typing import Dict, List
 from dotenv import load_dotenv
-
 from tag_api.models import Tag
 load_dotenv(".env")
 
@@ -59,3 +58,27 @@ def remove_project(project_id: str):
 
     r = requests.delete(endpoint + project_id)
     return r.status_code()
+
+def update_projects(changes: Dict[str, dict]):
+    """Takes a dictionary with keys of project ids and values of dictionaries with fields as keys and their updated values as values.
+    Updates the given fields."""
+    headers = {
+        "Authorization": "Bearer {AIRTABLE_API_KEY}",
+        "Content-Type": "application/json"
+    }
+
+    records: List[dict] = []
+    for project_id, change_dict in changes:
+        fields = change_dict.keys()
+        records.append(
+            {
+                "id": project_id,
+                "fields": {field:change_dict[field] for field in fields}
+            }
+        )
+    data = {
+        "records": records
+    }
+
+    r = requests.patch(endpoint, json = data, headers = headers)
+    print(r.status_code())

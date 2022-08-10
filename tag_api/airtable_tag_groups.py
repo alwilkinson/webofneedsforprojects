@@ -1,8 +1,7 @@
 import os
 import requests
-from typing import List
+from typing import Dict, List
 from dotenv import load_dotenv
-
 from tag_api.models import Tag
 load_dotenv(".env")
 
@@ -57,7 +56,26 @@ def remove_tag_group(tag_group_id: str):
     r = requests.delete(endpoint + tag_group_id)
     return r.status_code()
 
-def update_tag_group(tag_group_id: str):
+def update_tag_group(changes: Dict[str, dict]):
+    """Takes a dictionary with keys of tag group ids and values of dictionaries with fields as keys and their updated values as values.
+    Updates the given fields."""
     headers = {
-        "Authorization": "Bearer {AIRTABLE_API_KEY}"
+        "Authorization": "Bearer {AIRTABLE_API_KEY}",
+        "Content-Type": "application/json"
     }
+
+    records: List[dict] = []
+    for tag_group_id, change_dict in changes:
+        fields = change_dict.keys()
+        records.append(
+            {
+                "id": tag_group_id,
+                "fields": {field:change_dict[field] for field in fields}
+            }
+        )
+    data = {
+        "records": records
+    }
+
+    r = requests.patch(endpoint, json = data, headers = headers)
+    print(r.status_code())

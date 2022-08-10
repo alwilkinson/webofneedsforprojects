@@ -2,7 +2,6 @@ import os
 import requests
 from typing import List
 from dotenv import load_dotenv
-
 from tag_api.models import Tag
 load_dotenv(".env")
 
