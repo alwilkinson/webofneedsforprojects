@@ -1,15 +1,13 @@
+import os
 import requests
-from keys import airtable_key
+from dotenv import load_dotenv
+load_dotenv(".env")
 
-AIRTABLE_BASE_ID = 'appAyRuk6f9ewiH78'
-AIRTABLE_API_KEY = airtable_key
+AIRTABLE_BASE_ID = os.environ.get("AIRTABLE_BASE_ID")
+AIRTABLE_API_KEY = os.environ.get("AIRTABLE_API_KEY")
+AIRTABLE_TABLE_NAME = os.environ.get("AIRTABLE_TABLE_NAME")
 
-AIRTABLE_TAG_GROUPS_TABLE_NAME = 'TagGroups'
-AIRTABLE_TAGS_TABLE_NAME = 'Tags'
-AIRTABLE_PEOPLE_TABLE_NAME = 'People'
-AIRTABLE_PROJECTS_TABLE_NAME = 'Projects'
-
-endpoint = 'https://api.airtable.com/v0/{AIRTABLE_BASE_ID}/{AIRTABLE_PROJECTS_TABLE_NAME}'
+endpoint = 'https://api.airtable.com/v0/{AIRTABLE_BASE_ID}/{AIRTABLE_TABLE_NAME}'
 
 # headers = {
 #     "Authorization: Bearer {AIRTABLE_API_KEY}",
@@ -70,6 +68,6 @@ def add_project(project_id, description = None, name = None, tags = None, tag_id
     }
 
     r = requests.post(endpoint, json = data, headers = headers)
-    print(r.status_code)
+    print(r.status_code())
 
 add_project(None, name = "Test")
