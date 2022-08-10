@@ -5,23 +5,23 @@ from Project_Class import Project as pr
 from datetime import datetime
 from tag_api.models import Tag
 
-# This is a basic script to filter data based on search filters. I plan to include a better matching algorithm for the title matching
+# This is a basic script to filter data based on search filters. I plan to include a better matching algorithm for the name matching
     # and allow for less advanced searches, but this is a starting point.
-
-search_filters = {"title_includes": [], "tags_include": [], "title_exclude": [], "tags_exclude": [], "before_date": None, "after_date": None}
 
 data = Test_Data.get_project_data()
 
-def filter_search(data: List[pr], title_include: Union[str, None] = None, tags_include: Union[List[Tag], None] = None, title_exclude: Union[List[str], None] = None, tags_exclude: Union[Tag, None] = None, before_date: Union[datetime.date, None] = None, after_date: Union[datetime.date, None] = None) -> Union[List[pr], Dict[pr, List[str]]]:
-    """Filters searches based on strings to include in the title, tags to include, strings to exclude from the title, tags to exclude, and whether it was created before or after a given date.
-    Only direct matches with the title will cause inclusion or exclusion."""
+def filter_search(data: List[pr], name_include: Union[str, None] = None, tags_include: Union[List[Tag], None] = None, name_exclude: Union[List[str], None] = None, tags_exclude: Union[Tag, None] = None, before_date: Union[datetime.date, None] = None, after_date: Union[datetime.date, None] = None, description_include: Union[List[str], None] = None, description_exclude: Union[List[str], None] = None) -> Union[List[pr], Dict[pr, List[str]]]:
+    """Filters searches based on strings to include in the name, tags to include, strings to exclude from the name, tags to exclude, and whether it was created before or after a given date.
+    Only direct matches with the name will cause inclusion or exclusion."""
     display: Union[List[pr], Dict[pr, List[str]]] = data
     if tags_include or tags_exclude:
         display = filter_tags(display, tags_include, tags_exclude)
-    if title_include or title_exclude:
-        display = filter_title(display, tags_include, tags_exclude)
+    if name_include or name_exclude:
+        display = filter_name(display, name_include, name_exclude)
     if before_date or after_date:
         display = filter_date_created(display, before_date, after_date)
+    if description_include or description_exclude:
+        display = filter_description(display, description_include, description_exclude)
     return display
     
     
@@ -46,8 +46,8 @@ def contains_tags(project: pr, tags: Union[List[Tag], None]) -> Union[List[Tag],
             matching_tags.append(tag)
     return matching_tags if len(matching_tags) > 0 else None
 
-def filter_title(data: Union[List[pr], Dict[pr, List[str]]], title_include: Union[List[str], None] = None, title_exclude: Union[List[str], None] = None) -> Union[List[pr], Dict[pr, List[str]]]:
-    """Returns a list of projects whose title contains at least one string out of title_include and no strings out of title_exclude. If given a dictionary,
+def filter_name(data: Union[List[pr], Dict[pr, List[str]]], name_include: Union[List[str], None] = None, name_exclude: Union[List[str], None] = None) -> Union[List[pr], Dict[pr, List[str]]]:
+    """Returns a list of projects whose name contains at least one string out of name_include and no strings out of name_exclude. If given a dictionary,
     it will instead return a dictionary filtered by the same criteria."""
     out: List[pr] = []
     if type(data) == list:
@@ -55,15 +55,15 @@ def filter_title(data: Union[List[pr], Dict[pr, List[str]]], title_include: Unio
     else:
         projects_list: list = data.keys
     for project in projects_list:
-        if title_contains(project, title_include) and not title_contains(project, title_exclude):
+        if name_contains(project, name_include) and not name_contains(project, name_exclude):
             out.append(project)
     return out if type(data) == list else {project:data[project] for project in out}
 
-def title_contains(project: pr, patterns: List[str]) -> bool:
+def name_contains(project: pr, patterns: List[str]) -> bool:
     if patterns == None:
         return True
     for pattern in patterns:
-        match = re.search(pattern, pr.get_title(project))
+        match = re.search(pattern, pr.get_name(project))
         if match != None:
             return True
     return False
@@ -85,7 +85,27 @@ def created_before(project: pr, date: Union[datetime.date, None] = None) -> bool
 def created_after(project: pr, date: Union[datetime.date, None] = None) -> bool:
     return True if date == None or pr.get_date_created > date else False
 
-#filter by description
+def filter_description(data: Union[List[pr], Dict[pr, List[str]]], description_include: Union[List[str], None] = None, description_exclude: Union[List[str], None] = None) -> Union[List[pr], Dict[pr, List[str]]]:
+    """Returns a list of projects whose description contains at least one string out of description_include and no strings out of description_exclude. If given a dictionary,
+    it will instead return a dictionary filtered by the same criteria."""
+    out: List[pr] = []
+    if type(data) == list:
+        projects_list: list = data
+    else:
+        projects_list: list = data.keys
+    for project in projects_list:
+        if description_contains(project, description_include) and not description_contains(project, description_exclude):
+            out.append(project)
+    return out if type(data) == list else {project:data[project] for project in out}
+
+def description_contains(project: pr, patterns: List[str]) -> bool:
+    if patterns == None:
+        return True
+    for pattern in patterns:
+        match = re.search(pattern, pr.get_description(project))
+        if match != None:
+            return True
+    return False
 
 #fiter by region
 
