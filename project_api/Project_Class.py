@@ -4,11 +4,11 @@ from tag_api.models import Tag
 
 class Project:
     """Simple object to represent a project"""
-    __slots__ = '_id', '_title', '_tags', '_description', '_date_created', '_region', '_creator_id', '_is_event', '_event_time'
+    __slots__ = '_id', '_name', '_tags', '_description', '_date_created', '_region', '_creator_id', '_is_event', '_event_time'
 
-    def __init__(self, id: int, title: str, tags: List[Tag] = [], description: Union[str, None] = None, region: Union[str, None] = None, creator_id: Union[int, None] = None, is_event: bool = False, event_time: Union[datetime, None] = None):
+    def __init__(self, id: int, name: str, tags: List[Tag] = [], description: Union[str, None] = None, region: Union[str, None] = None, creator_id: Union[int, None] = None, is_event: bool = False, event_time: Union[datetime, None] = None):
         self._id = id
-        self._title = title
+        self._name = name
         self._tags = tags
         self._description = description
         self._date_created = datetime.today()
@@ -25,8 +25,8 @@ class Project:
     def get_tags(self) -> List[Tag]:
         return self._tags
 
-    def get_title(self) -> str:
-        return self._title
+    def get_name(self) -> str:
+        return self._name
 
     def get_description(self) -> Union[str, None]:
         return self._description
