@@ -62,7 +62,7 @@ def remove_project(project_id: str):
     r = requests.delete(f"{endpoint}/{project_id}", headers = headers)
     return r.status_code
 
-def update_projects(changes: Dict[str, dict]):
+def update_projects_patch(changes: Dict[str, dict]):
     """Takes a dictionary with keys of project ids and values of dictionaries with fields as keys and their updated values as values.
     Updates the given fields."""
 
@@ -87,5 +87,26 @@ def update_projects(changes: Dict[str, dict]):
     r = requests.patch(endpoint, json = data, headers = headers)
     print(r.status_code)
 
-# add_project("Test", "this is a test")
-print(get_projects())
+def update_projects_put(project_id, name: str, description: str = None, tags: List[Tag] = [], primary_contact: str = None, image: str = None, region: str = None):
+    headers = {
+        "Authorization": auth,
+        "Content-Type": "application/json"
+    }
+
+    data = {
+         "records": [
+            {
+                "fields": {
+                    "Description": description,
+                    "Name": name,
+                    "Tags": tags,
+                    "PrimaryContact": primary_contact,
+                    "Image": image,
+                    "Region": region
+                }
+            }
+        ]
+    }
+
+    r = requests.put(f"{endpoint}/{project_id}", json = data, headers = headers)
+    print(r.status_code)

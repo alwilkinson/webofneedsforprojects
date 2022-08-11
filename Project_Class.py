@@ -4,16 +4,16 @@ from models import Tag
 
 class Project:
     """Simple object to represent a project"""
-    __slots__ = '_id', '_name', '_tags', '_description', '_date_created', '_region', '_creator_id', '_is_event', '_event_time'
+    __slots__ = '_id', '_name', '_tags', '_description', '_date_created', '_region', '_primary_contact', '_is_event', '_event_time'
 
-    def __init__(self, id: str, name: str, tags: List[Tag] = [], description: Union[str, None] = None, date_created: datetime.date = None, region: Union[str, None] = None, creator_id: Union[int, None] = None, is_event: bool = False, event_time: Union[datetime, None] = None):
+    def __init__(self, id: str, name: str, tags: List[Tag] = [], description: Union[str, None] = None, date_created: datetime.date = None, region: Union[str, None] = None, primary_contact: Union[int, None] = None, is_event: bool = False, event_time: Union[datetime, None] = None):
         self._id = id
         self._name = name
         self._tags = tags
         self._description = description
         self._date_created = date_created
         self._region = region
-        self._creator_id = creator_id
+        self._primary_contact = primary_contact
         self._is_event = is_event
         self._event_time = event_time
 
@@ -37,8 +37,8 @@ class Project:
     def get_region(self) -> Union[str, None]:
         return self._region
 
-    def get_creator_id(self) -> Union[int, None]:
-        return self._creator_id
+    def get_primary_contact(self) -> Union[int, None]:
+        return self._primary_contact
     
     def get_event_time(self) -> Union[datetime, None]:
         return self._event_time
