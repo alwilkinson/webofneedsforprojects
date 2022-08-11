@@ -1,4 +1,5 @@
 from fastapi import FastAPI, status, Response, HTTPException
+from fastapi.staticfiles import StaticFiles
 from Project_Class import Project as pr
 from typing import List, Union
 from datetime import datetime
@@ -8,6 +9,8 @@ import json
 import re
 
 app = FastAPI()
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # models.Base.metadata.create_all(engine)
 
