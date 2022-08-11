@@ -1,4 +1,4 @@
-import Test_Data
+from project_main import get_projects_list
 import re
 from typing import List, Union, Dict
 from Project_Class import Project as pr
@@ -8,7 +8,7 @@ from models import Tag
 # This is a basic script to filter data based on search filters. I plan to include a better matching algorithm for the name matching
     # and allow for less advanced searches, but this is a starting point.
 
-data = Test_Data.get_project_data()
+data = get_projects_list()
 
 def filter_search(data: List[pr], name_include: Union[str, None] = None, tags_include: Union[List[Tag], None] = None, name_exclude: Union[List[str], None] = None, tags_exclude: Union[Tag, None] = None, before_date: Union[datetime.date, None] = None, after_date: Union[datetime.date, None] = None, description_include: Union[List[str], None] = None, description_exclude: Union[List[str], None] = None) -> Union[List[pr], Dict[pr, List[str]]]:
     """Filters searches based on strings to include in the name, tags to include, strings to exclude from the name, tags to exclude, and whether it was created before or after a given date.
