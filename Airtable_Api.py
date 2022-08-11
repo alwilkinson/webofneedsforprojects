@@ -82,3 +82,5 @@ def update_projects(changes: Dict[str, dict]):
 
     r = requests.patch(endpoint, json = data, headers = headers)
     print(r.status_code())
+
+add_project("Test", "this is a test")

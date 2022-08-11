@@ -23,3 +23,5 @@ def create_project(name: str, tags: List[Tag] = [], description: Union[str, None
 
 def remove_project(project: pr):
     airtable.remove_project(pr.get_id(project))
+
+create_project("Test", description = "This is a test")
