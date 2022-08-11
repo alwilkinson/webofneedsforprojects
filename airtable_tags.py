@@ -2,34 +2,35 @@ import os
 import requests
 from typing import List
 from dotenv import load_dotenv
-from tag_api.models import Tag
+from models import Tag
 load_dotenv(".env")
 
 AIRTABLE_BASE_ID = os.environ.get("AIRTABLE_BASE_ID")
 AIRTABLE_API_KEY = os.environ.get("AIRTABLE_API_KEY")
 AIRTABLE_TABLE_NAME = os.environ.get("AIRTABLE_TAGS_TABLE_NAME")
 
-endpoint = 'https://api.airtable.com/v0/{AIRTABLE_BASE_ID}/{AIRTABLE_TABLE_NAME}'
+endpoint = f'https://api.airtable.com/v0/{AIRTABLE_BASE_ID}/{AIRTABLE_TABLE_NAME}'
+auth = f"Bearer {AIRTABLE_API_KEY}"
 
 def get_tag(tag_id: str):
     headers = {
-        "Authorization": "Bearer {AIRTABLE_API_KEY}"
+        "Authorization": auth
     }
 
-    r = requests.get(endpoint + tag_id)
+    r = requests.get(endpoint + tag_id, headers = headers)
     return r.json()
 
 def get_tags():
     headers = {
-        "Authorization": "Bearer {AIRTABLE_API_KEY}"
+        "Authorization": auth
     }
 
-    r = requests.get(endpoint)
+    r = requests.get(endpoint, headers = headers)
     return r.json
 
 def add_tag(name: str, description: str = None):
     headers = {
-        "Authorization": "Bearer {AIRTABLE_API_KEY}",
+        "Authorization": auth,
         "Content-Type": "application/json"
     }
 
@@ -49,8 +50,8 @@ def add_tag(name: str, description: str = None):
 
 def remove_tag(tag_id: str):
     headers = {
-        "Authorization": "Bearer {AIRTABLE_API_KEY}"
+        "Authorization": auth
     }
 
-    r = requests.delete(endpoint + tag_id)
+    r = requests.delete(endpoint + tag_id, headers = headers)
     return r.status_code()

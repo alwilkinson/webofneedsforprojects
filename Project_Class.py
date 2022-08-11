@@ -1,6 +1,6 @@
 from datetime import datetime
 from typing import Union, List
-from tag_api.models import Tag
+from models import Tag
 
 class Project:
     """Simple object to represent a project"""

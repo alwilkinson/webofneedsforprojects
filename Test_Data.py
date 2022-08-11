@@ -2,19 +2,20 @@ from Project_Class import Project as pr
 from typing import List, Union
 from datetime import datetime
 import Airtable_Api as airtable
-from tag_api.models import Tag
+from models import Tag
 import json
 import re
 
 def get_project_data() -> List[pr]:
-    data = json.loads(airtable.get_projects())["records"]
+    data = airtable.get_projects()["records"]
     projects: List[pr] = []
     for project in data:
         fields = project["fields"]
-        # date created requires some scraping, as the airtable keeps more precise time than we need.
+# date created requires some scraping, as the airtable keeps more precise time than we need.
         year, month, day = [int(string) for string in re.split(r'-', project["createdTime"][0:10])]
-        date = datetime.date(year, month, day)
-        projects.append(pr(project["id"], fields["Name"], fields["Tags"], fields["Description"], date, fields["Region"], fields["Primary_Contact"]))
+        date = datetime(year, month, day)
+        print(project)
+        projects.append(pr(project["id"], fields["Name"], fields.get("Tags", None), fields.get("Description", None), date, fields.get("Region", None), fields.get("Primary_Contact", None)))
     return projects
     
 
@@ -24,4 +25,4 @@ def create_project(name: str, tags: List[Tag] = [], description: Union[str, None
 def remove_project(project: pr):
     airtable.remove_project(pr.get_id(project))
 
-create_project("Test", description = "This is a test")
+get_project_data()

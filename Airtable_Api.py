@@ -2,34 +2,37 @@ import os
 import requests
 from typing import Dict, List
 from dotenv import load_dotenv
-from tag_api.models import Tag
+from models import Tag
 load_dotenv(".env")
 
 AIRTABLE_BASE_ID = os.environ.get("AIRTABLE_BASE_ID")
 AIRTABLE_API_KEY = os.environ.get("AIRTABLE_API_KEY")
 AIRTABLE_TABLE_NAME = os.environ.get("AIRTABLE_TABLE_NAME")
 
-endpoint = 'https://api.airtable.com/v0/{AIRTABLE_BASE_ID}/{AIRTABLE_TABLE_NAME}'
+endpoint = f'https://api.airtable.com/v0/{AIRTABLE_BASE_ID}/{AIRTABLE_TABLE_NAME}'
+auth = f"Bearer {AIRTABLE_API_KEY}"
 
 def get_project(project_id: str):
     headers = {
-        "Authorization": "Bearer {AIRTABLE_API_KEY}"
+        "Authorization": auth
     }
 
-    r = requests.get(endpoint + project_id)
+    r = requests.get(endpoint + project_id, headers = headers)
     return r.json()
 
 def get_projects():
     headers = {
-        "Authorization": "Bearer {AIRTABLE_API_KEY}"
+        "Authorization": auth
     }
 
-    r = requests.get(endpoint) # Don't have time to figure out the parameters; I'll filter things on the python side of things for now
-    return r.json
+    print(endpoint)
+
+    r = requests.get(endpoint, headers = headers) # Don't have time to figure out the parameters; I'll filter things on the python side of things for now
+    return r.json()
 
 def add_project(name: str, description: str = None, tags: List[Tag] = [], primary_contact: str = None, image: str = None, region: str = None):
     headers = {
-        "Authorization": "Bearer {AIRTABLE_API_KEY}",
+        "Authorization": auth,
         "Content-Type": "application/json"
     }
 
@@ -49,21 +52,22 @@ def add_project(name: str, description: str = None, tags: List[Tag] = [], primar
     }
 
     r = requests.post(endpoint, json = data, headers = headers)
-    print(r.status_code())
+    print(r.status_code)
 
 def remove_project(project_id: str):
     headers = {
-        "Authorization": "Bearer {AIRTABLE_API_KEY}"
+        "Authorization": auth
     }
 
-    r = requests.delete(endpoint + project_id)
-    return r.status_code()
+    r = requests.delete(endpoint + project_id, headers = headers)
+    return r.status_code
 
 def update_projects(changes: Dict[str, dict]):
     """Takes a dictionary with keys of project ids and values of dictionaries with fields as keys and their updated values as values.
     Updates the given fields."""
+
     headers = {
-        "Authorization": "Bearer {AIRTABLE_API_KEY}",
+        "Authorization": auth,
         "Content-Type": "application/json"
     }
 
@@ -81,6 +85,7 @@ def update_projects(changes: Dict[str, dict]):
     }
 
     r = requests.patch(endpoint, json = data, headers = headers)
-    print(r.status_code())
+    print(r.status_code)
 
-add_project("Test", "this is a test")
+# add_project("Test", "this is a test")
+print(get_projects())

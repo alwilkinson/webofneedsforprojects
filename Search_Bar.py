@@ -3,7 +3,7 @@ import re
 from typing import List, Union, Dict
 from Project_Class import Project as pr
 from datetime import datetime
-from tag_api.models import Tag
+from models import Tag
 
 # This is a basic script to filter data based on search filters. I plan to include a better matching algorithm for the name matching
     # and allow for less advanced searches, but this is a starting point.
