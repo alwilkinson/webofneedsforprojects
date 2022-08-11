@@ -53,5 +53,5 @@ def remove_tag(tag_id: str):
         "Authorization": auth
     }
 
-    r = requests.delete(endpoint + tag_id, headers = headers)
+    r = requests.delete(f"{endpoint}/{tag_id}", headers = headers)
     return r.status_code()

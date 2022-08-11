@@ -15,7 +15,7 @@ def get_project_data() -> List[pr]:
         year, month, day = [int(string) for string in re.split(r'-', project["createdTime"][0:10])]
         date = datetime(year, month, day)
         print(project)
-        projects.append(pr(project["id"], fields["Name"], fields.get("Tags", None), fields.get("Description", None), date, fields.get("Region", None), fields.get("Primary_Contact", None)))
+        projects.append(pr(project["id"], fields.get("Name", None), fields.get("Tags", None), fields.get("Description", None), date, fields.get("Region", None), fields.get("Primary_Contact", None)))
     return projects
     
 

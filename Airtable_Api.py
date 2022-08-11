@@ -17,7 +17,7 @@ def get_project(project_id: str):
         "Authorization": auth
     }
 
-    r = requests.get(endpoint + project_id, headers = headers)
+    r = requests.get(f"{endpoint}/{project_id}", headers = headers)
     return r.json()
 
 def get_projects():
@@ -59,7 +59,7 @@ def remove_project(project_id: str):
         "Authorization": auth
     }
 
-    r = requests.delete(endpoint + project_id, headers = headers)
+    r = requests.delete(f"{endpoint}/{project_id}", headers = headers)
     return r.status_code
 
 def update_projects(changes: Dict[str, dict]):

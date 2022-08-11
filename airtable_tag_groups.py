@@ -17,7 +17,7 @@ def get_tag_group(tag_group_id: str):
         "Authorization": auth
     }
 
-    r = requests.get(endpoint + tag_group_id, headers = headers)
+    r = requests.get(f"{endpoint}/{tag_group_id}", headers = headers)
     return r.json()
 
 def get_tag_groups():
@@ -54,7 +54,7 @@ def remove_tag_group(tag_group_id: str):
         "Authorization": auth
     }
 
-    r = requests.delete(endpoint + tag_group_id, headers = headers)
+    r = requests.delete(f"{endpoint}/{tag_group_id}", headers = headers)
     return r.status_code
 
 def update_tag_group(changes: Dict[str, dict]):
