@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Web Of Needs</title>
+  </head>
+
+  <body>
+    <!-- Main div for page -->
+    <div class="header">
+      <!-- Uploads background video loops and mutes it-->
+      <video autoplay loop class="back-video" muted plays-inline>
+        <source src="media/video.mp4" type="video/mp4" />
+      </video>
+
+      <!-- This will house Title for site and navigation center -->
+      <nav>
+        <h1>WEB OF NEEDS</h1>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="">Categories</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </nav>
+
+      <!-- div for center page content and search bar -->
+      <div class="content">
+        <h1>Find Your Mission</h1>
+        <form>
+          <input
+            type="text"
+            id="searchBar"
+            placeholder=" &#128270;  Enter Keyword"
+          />
+          <button
+            type="button"
+            onClick="document.getElementById('projectbox').scrollIntoView();"
+          >
+            Search
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="projectbox" id="projectbox">
+      <ul id="projectList"></ul>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
+
+<!-- <div class="heading">
+      <h1>WEB OF NEEDS</h1>
+      <div class="buttons-section">
+        <button class="button" type="reset">Home</button>
+        <button class="button" type="submit">Categories</button>
+        <button class="button" type="submit">About Us</button>
+      </div>
+    </div>
+
+    <div class="container">
+      <form class="search-bar">
+        <input type="text" placeholder="Search Web" name="q" />
+        <button type="submit"><img src="images/search-icon.png" /></button>
+      </form>
+    </div> -->
+
+<!-- <div class="user-cards">
+      <div class="card">
+        <div class="header">My Name</div>
+        <div class="body">email@gmail.com</div>
+      </div>
+    </div> -->
